@@ -1,22 +1,27 @@
 databases:
-  - name: my-django-db
-    plan: free # or starter
+  - name: grocery-db
+    plan: free
+    databaseName: grocery_db
+    user: grocery_user
 
 services:
   - type: web
-    name: my-django-app
+    name: grocery-bud-app
     runtime: python
     plan: free
     buildCommand: "./build.sh"
-   startCommand: "gunicorn grocery.wsgi:application --bind 0.0.0.0:$PORT"
+    # Note: Using 'djangocrud.wsgi' because that is your project folder name
+    startCommand: "gunicorn djangocrud.wsgi:application --bind 0.0.0.0:$PORT"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
-          name: my-django-db
+          name: grocery-db
           property: connectionString
       - key: SECRET_KEY
         generateValue: true
       - key: DEBUG
         value: "False"
       - key: ALLOWED_HOSTS
-        value: "my-django-app.onrender.com"
+        value: "grocery-bud-app.onrender.com"
+      - key: PYTHON_VERSION
+        value: "3.10.0"
