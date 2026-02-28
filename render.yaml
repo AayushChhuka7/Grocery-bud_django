@@ -22,6 +22,6 @@ services:
       - key: DEBUG
         value: "False"
       - key: ALLOWED_HOSTS
-        value: "grocery-bud-app.onrender.com"
+        value: ".onrender.com"
       - key: PYTHON_VERSION
         value: "3.10.0"
